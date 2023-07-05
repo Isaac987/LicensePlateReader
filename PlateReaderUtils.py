@@ -15,7 +15,7 @@ def GetObjectBox(width, height, row):
     x1, y1, x2, y2 = int(row[0] * width), int(row[1] * height), int(row[2] * width), int(row[3] * height)
     return x1, y1, x2, y2
 
-def PlotBoxes(results, frame, thresh):
+def PlotBoxes(results, frame, classes, thresh):
     labels, coords = results
     n = len(labels)
     width, height = frame.shape[1], frame.shape[0]
@@ -23,16 +23,16 @@ def PlotBoxes(results, frame, thresh):
     for i in range(n):
         row = coords[i]
 
-        if (row[4] >= .5):
+        if (row[4] >= thresh):
             x1, y1, x2, y2 = GetObjectBox(width, height, row)
             background = (0, 255, 0)
 
         cv2.rectangle(frame, (x1, y1), (x2, y2), background, 2)
-        plate = self.plate_reader.readtext(frame[y1: y2, x1: x2])
+        # plate = self.plate_reader.readtext(frame[y1: y2, x1: x2])
 
     if (len(plate) > 1):
         plate = plate[1]
 
-    cv2.putText(frame, f"{self.plate_detector.class_to_label(labels[i])} {plate}", (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 0.9, cv2.LINE_AA)
+    cv2.putText(frame, ClassToLabel(classes, labels[i]), (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 1, background, 2, cv2.LINE_AA)
 
     return frame
