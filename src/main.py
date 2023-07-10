@@ -18,11 +18,12 @@ DATA = {
 
 MODELS = {
     "plates_pt" : os.path.join(PATHS["models"], "plates.pt"),
+    "plates_n_pt" : os.path.join(PATHS["models"], "plates_n.pt"),
     "plates_onnx" : os.path.join(PATHS["models"], "plates.onnx"),
 }
 
 def main():
-    plate_detector = PlateDetector(MODELS["plates_pt"])
+    plate_detector = PlateDetector(MODELS["plates_n_pt"])
     plate_collector = PlateCollector(DATA["dashcam"], plate_detector)
     plate_collector()
 
