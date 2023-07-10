@@ -1,18 +1,19 @@
+import numpy as np
 import torch
+from Plate import Plate
 
 class PlateDetector:
 
-    def __init__(self, model_name):
+    def __init__(self, model_name: str) -> None:
         self.model = torch.hub.load('ultralytics/yolov5', 'custom', path=model_name)
-        self.classes = self.model.names
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    def score_frame(self, frame):
-        self.model.to(self.device)
-        frame = [frame]
-        result = self.model(frame)
-        labels, coords = result.xyxyn[0][:, -1], result.xyxyn[0][:, :-1]
-        return labels, coords
+    def Predict(self, image: np.ndarray) -> np.ndarray:
+        results: np.ndarray = self.model(image).xyxy[0].numpy()
+        print("Results", results)
+        plates: np.ndarray = np.empty(results.shape[0], dtype=Plate)
+        print("plates", plates)
 
-    def class_to_label(self, x):
-        return self.classes[int(x)]
+        for i in np.arange(results.shape[0]):
+            plates[i] = Plate(results[i])
+
+        return plates
