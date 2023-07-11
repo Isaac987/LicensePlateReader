@@ -3,10 +3,12 @@ from PlateDetector import PlateDetector
 from PlateCollector import PlateCollector
 
 ROOT = os.path.abspath(".")
+
 PATHS = {
     "data": os.path.join(ROOT, "data"),
     "models": os.path.join(ROOT, "models"),
 }
+
 DATA = {
     "img00" : os.path.join(PATHS["data"], "car00.webp"),
     "img01" : os.path.join(PATHS["data"], "car01.webp"),
