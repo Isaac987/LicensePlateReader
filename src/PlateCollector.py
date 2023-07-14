@@ -1,3 +1,4 @@
+import time
 import numpy as np
 import cv2
 from Plate import Plate
@@ -10,16 +11,28 @@ class PlateCollector:
         self.model: PlateDetector = model
 
     def Run(self):
-        cap = cv2.VideoCapture(self.capture_index)
+        cap: cv2.VideoCapture = cv2.VideoCapture(self.capture_index)
         assert cap.isOpened()
 
+        prev_time: float = 0.0
+        cur_time: float = 0.0
+        fps: float = 0.0
+
+        self.model.SetImageSize(cap.get(cv2.CAP_PROP_FRAME_WIDTH), cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
         while (True):
-            ret, frame = cap.read()
+            ret , frame = cap.read()
 
             if not ret:
                 break
 
-            plates = self.model.Predict(frame)
+            plates: np.ndarray = self.model.Predict(frame)
+
+            cur_time = time.time()
+            fps = 1 / (cur_time - prev_time)
+            prev_time = cur_time
+
+            cv2.putText(frame, f"fps: {str(int(fps))}", (10, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255))
 
             for plate in plates:
                 frame = cv2.rectangle(frame, plate.top_left, plate.bottom_right, (255, 0, 0), 5)
