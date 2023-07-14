@@ -12,7 +12,7 @@ class Plate:
         self.bottom_right = (self.x2, self.y2)
 
     def __str__(self) -> str:
-        return f"License Plate {100 * self.confidence: .2}%"
+        return f"License Plate {100 * self.confidence: .2f}%"
 
     def __repr__(self) -> str:
         return f"License Plate {self.top_left} {self.bottom_right} {100 * self.confidence: .2f}%"
