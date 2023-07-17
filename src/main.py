@@ -4,7 +4,7 @@ from PlateCollector import PlateCollector
 import cv2
 import numpy as np
 
-ROOT = os.path.abspath("..")
+ROOT = os.path.abspath(".")
 
 PATHS = {
     "data": os.path.join(ROOT, "data"),
@@ -31,8 +31,8 @@ MODELS = {
 
 
 def main():
-    pd = PlateDetector(r"C:\Users\iperkins\Develop\LicensePlateReader\models\plates_yolov5n.onnx", 640)
-    pc = PlateCollector(r"C:\Users\iperkins\Develop\LicensePlateReader\data\video.mp4", pd)
+    pd = PlateDetector(MODELS["platesv5n_onnx"], 640)
+    pc = PlateCollector(DATA["video"], pd)
 
     pc.Run()
 
