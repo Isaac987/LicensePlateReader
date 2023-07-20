@@ -3,8 +3,25 @@ import cv2
 from Plate import Plate
 
 class PlateDetector():
+    """Class for detecting license plates in images using a pre-trained object detection model.
+
+    Args:
+        model_path (str): The path to the pre-trained object detection model in ONNX format.
+        input_shape (int): The input shape (both width and height) that the model expects.
+        conf_thresh (float, optional): Confidence threshold for filtering out low-confidence predictions. Defaults to 0.7.
+        nms_thresh (float, optional): Threshold for non-maximum suppression to remove overlapping bounding boxes with lower confidence scores. Defaults to 0.5.
+    """
 
     def __init__(self, model_path: str, input_shape: int, conf_thresh: float = 0.7, nms_thresh: float = 0.5) -> None:
+        """Initialize the PlateDetector object with the specified model and parameters.
+
+        Args:
+            model_path (str): The path to the pre-trained object detection model in ONNX format.
+            input_shape (int): The input shape (both width and height) that the model expects.
+            conf_thresh (float, optional): Confidence threshold for filtering out low-confidence predictions. Defaults to 0.7.
+            nms_thresh (float, optional): Threshold for non-maximum suppression to remove overlapping bounding boxes with lower confidence scores. Defaults to 0.5.
+        """
+
         self.model_path: str = model_path
         self.input_shape: int = input_shape
         self.conf_thresh: float = conf_thresh
@@ -14,13 +31,33 @@ class PlateDetector():
         self.scale_h: float = 0.0
 
     def __repr__(self) -> str:
+        """Return a string representation of the PlateDetector object."""
+
         return f"PlateDetector({self.model_path}, {self.input_shape})"
 
     def SetImageSize(self, width: float, height: float) -> None:
+        """Set the image size used for scaling the bounding box coordinates during prediction.
+
+        Set the image size used for scaling the bounding box coordinates during prediction.
+        This should be set before any image prediction or before any video capture.
+
+        Args:
+            width (float): The actual width of the image.
+            height (float): The actual height of the image.
+        """
+
         self.scale_w = width / self.input_shape
         self.scale_h = height / self.input_shape
 
     def Predict(self, img: np.ndarray) -> np.ndarray:
+        """Detect license plates in the input image using the pre-trained object detection model.
+
+        Args:
+            img (numpy.ndarray): The input image as a NumPy array.
+
+        Returns:
+            numpy.ndarray: An array of Plate objects representing detected license plates. Each Plate object contains the bounding box coordinates (x1, y1, x2, y2) and the confidence score of the detection.
+        """
 
         # Create blob from image and set as model input
         blob: np.ndarray = cv2.dnn.blobFromImage(img, 1/255, (self.input_shape, self.input_shape), swapRB=False, crop=False)
