@@ -6,7 +6,7 @@ from Plate import Plate
 class PlateDetector():
     """Class for detecting license plates in images using a pre-trained object detection model.
 
-    Args:
+    Attributes:
         model_path (str): The path to the pre-trained object detection model in ONNX format.
         input_shape (int): The input shape (both width and height) that the model expects.
         conf_thresh (float, optional): Confidence threshold for filtering out low-confidence predictions. Defaults to 0.7.
