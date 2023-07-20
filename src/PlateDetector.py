@@ -43,7 +43,7 @@ class PlateDetector():
 
         return f"PlateDetector({self.model_path}, {self.input_shape}, {self.conf_thresh}, {self.nms_thresh})"
 
-    def SetImageSize(self, width: float, height: float) -> None:
+    def set_image_size(self, width: float, height: float) -> None:
         """Set the image size used for scaling the bounding box coordinates during prediction.
 
         Set the image size used for scaling the bounding box coordinates during prediction.
@@ -57,7 +57,7 @@ class PlateDetector():
         self.scale_w = width / self.input_shape
         self.scale_h = height / self.input_shape
 
-    def Predict(self, img: np.ndarray) -> np.ndarray:
+    def predict(self, img: np.ndarray) -> np.ndarray:
         """Detect license plates in the input image using the pre-trained object detection model.
 
         Args:
