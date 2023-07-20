@@ -41,7 +41,7 @@ class PlateDetector():
     def __repr__(self) -> str:
         """Return a string representation of the PlateDetector object."""
 
-        return f"PlateDetector({self.model_path}, {self.input_shape})"
+        return f"PlateDetector({self.model_path}, {self.input_shape}, {self.conf_thresh}, {self.nms_thresh})"
 
     def SetImageSize(self, width: float, height: float) -> None:
         """Set the image size used for scaling the bounding box coordinates during prediction.
