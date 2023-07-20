@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import cv2
 from Plate import Plate
@@ -22,11 +23,18 @@ class PlateDetector():
             nms_thresh (float, optional): Threshold for non-maximum suppression to remove overlapping bounding boxes with lower confidence scores. Defaults to 0.5.
         """
 
+        # Check if the model file exists
+        if (not os.path.isfile(model_path)):
+            raise FileNotFoundError(f"Model file not found at: {model_path}")
+
+        # Load the pre-trained ONNX model using OpenCV's dnn module
+        self.model: cv2.dnn.Net = cv2.dnn.readNetFromONNX(model_path)
+
+        # Initialize parameters
         self.model_path: str = model_path
         self.input_shape: int = input_shape
         self.conf_thresh: float = conf_thresh
         self.nms_thresh: float = nms_thresh
-        self.model: cv2.dnn.Net = cv2.dnn.readNetFromONNX(model_path)
         self.scale_w: float = 0.0
         self.scale_h: float = 0.0
 
