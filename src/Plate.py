@@ -15,4 +15,4 @@ class Plate:
         return f"License Plate {100 * self.confidence: .2f}%"
 
     def __repr__(self) -> str:
-        return f"License Plate {self.top_left} {self.bottom_right} {100 * self.confidence: .2f}%"
+        return f"Plate({self.x1}, {self.y1}, {self.x2}, {self.y2}, {self.confidence: .2f})"
