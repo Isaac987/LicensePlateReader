@@ -39,7 +39,7 @@ class Plate:
             str: A string with information about the detected license plate.
         """
 
-        return f"Plate: {self.top_left}, {self.bottom_right}, {100 * self.confidence: .2f}%"
+        return f"Plate {100 * self.confidence: .2f}%"
 
     def __repr__(self) -> str:
         """Return a string representation of the Plate object.
