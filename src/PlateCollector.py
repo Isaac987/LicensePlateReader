@@ -18,7 +18,7 @@ class PlateCollector:
         cur_time: float = 0.0
         fps: float = 0.0
 
-        self.model.SetImageSize(cap.get(cv2.CAP_PROP_FRAME_WIDTH), cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        self.model.set_image_size(cap.get(cv2.CAP_PROP_FRAME_WIDTH), cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
         while (True):
             ret , frame = cap.read()
@@ -26,7 +26,7 @@ class PlateCollector:
             if not ret:
                 break
 
-            plates: np.ndarray = self.model.Predict(frame)
+            plates: np.ndarray = self.model.predict(frame)
 
             cur_time = time.time()
             fps = 1 / (cur_time - prev_time)
