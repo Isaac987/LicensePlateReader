@@ -1,6 +1,6 @@
 # PlateSpotter
 
-Plate Spotter is a license plate detection system which utilises the power of machine learning to quikley identify a variety of different license plates from images, videos, and a live feed.
+Plate Spotter is a license plate detection system which utilises the power of machine learning to identify a variety of different license plates from images, videos, and a live feed.
 
 ## Table of Contents (Optional)
 
