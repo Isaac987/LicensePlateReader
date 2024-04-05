@@ -29,6 +29,3 @@ Example installation in a Linux environment using Anaconda as a local environmen
 4. conda install pip
 5. pip install -r requirements.txt
 ```
-
-## Usage
-TODO
