@@ -23,8 +23,8 @@ This program can identify license plates and outline them with a border and conf
 Example installation in a Linux environment using Anaconda as a local environment.
 
 ```bash
-1. git clone https://github.com/Isaac987/PlateSpotter.git
-2. cd PlateSpotter
+1. git clone https://github.com/Isaac987/plate_spotter.git
+2. cd plate_spotter
 3. conda create --prefix ./.venv
 4. conda install pip
 5. pip install -r requirements.txt
